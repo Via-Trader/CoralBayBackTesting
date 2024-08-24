@@ -1,0 +1,78 @@
+select * from esp..a where stock like 'us2000%' 
+--and modulename ='InfoPrice rising on reducing volume'
+and price<=2162
+order by dbdate desc
+
+
+
+select * from esp..a where stock like 'spx500%' 
+--and modulename ='InfoPrice rising on reducing volume'
+and price<=5600
+order by dbdate desc
+
+
+select * from esp..a where stock like 'nas100%' 
+--and modulename ='InfoPrice rising on reducing volume'
+and price<=19661
+order by dbdate desc
+
+
+
+select * from esp..a where  modulename ='Matrix pullback 004 long' and timeperiod=30 and numberofshares<=30
+order by dbdate desc
+
+
+
+select * from esp..a where  modulename ='Matrix pullback 004 long' and timeperiod=15 and numberofshares<=30
+order by dbdate desc
+
+
+select * from esp..a where  modulename =
+'RFXBreakdown through short term swing low support level' and timeperiod=15 and numberofshares<=30
+order by dbdate desc
+
+
+
+select * from esp..a where  modulename like
+'%RFXb%' and timeperiod=15 --and numberofshares<=30
+order by stock,dbdate desc
+
+
+-- late trade breakouts 
+
+ID	Stock	AlertTime	Price	TimePeriod	ModuleName	TradeLive	ExitPrice	WinOrLose	ExitTime	DBDate	NumberOfShares	ProfitsTaken	Comments	Gif
+7059	NAS100	23/08/2024 17:30:00.000	19537.7	15	RFXBreakdown through short term swing low support level	Y	19710.6016	?	23/08/2024 23:47:37.680	23/08/2024 17:57:00.913	28	N	Bearish_32x64	c:\viatrader\config\esp4\viatrader_esp4_sim
+274	NAS100	23/08/2024 06:30:00.000	19623.5	15	RFXBreakout through short term swing low resistance level	Y	19710.6016	?	23/08/2024 23:47:37.680	23/08/2024 06:47:33.950	79	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+6911	SPX500	23/08/2024 17:15:00.000	5596.92	15	RFXBreakdown through short term swing low support level	Y	5635.6699	?	23/08/2024 23:47:37.680	23/08/2024 17:41:33.750	47	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+8251	US2000	23/08/2024 21:15:00.000	2222.09	15	RFXBreakout through short term swing high resistance level	Y	2220.9502	[NULL]	23/08/2024 23:47:37.680	23/08/2024 21:41:34.170	78	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+8251	US2000	23/08/2024 21:15:00.000	2222.09	15	RFXBreakout through short term swing high resistance level	Y	2220.9502	?	23/08/2024 23:47:37.680	23/08/2024 21:41:34.170	57	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+1510	US2000	23/08/2024 08:00:00.000	2164.33	15	RFXBreakout through short term swing high resistance level	Y	2220.9502	?	23/08/2024 23:47:37.680	23/08/2024 08:23:37.467	63	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+6912	US30	23/08/2024 17:15:00.000	40892.6	15	RFXBreakdown through short term swing low support level	Y	41181.1289	?	23/08/2024 23:47:37.680	23/08/2024 17:41:33.770	54	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+6350	US30	23/08/2024 16:15:00.000	41186.1	15	RFXBreakout through short term swing high resistance level	Y	41181.1289	?	23/08/2024 23:47:37.680	23/08/2024 16:32:33.457	64	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+
+
+
+
+
+RFXBreakdown through short term swing low support level
+
+
+--dip trades below the daily pivot
+
+7112	SPX500	23/08/2024 17:30:00.000	5596.05	30	Matrix pullback 004 long	Y	5635.6699	A	23/08/2024 23:07:37.747	23/08/2024 18:05:36.760	31	N	Bullish_32x64	bullish
+2089	SPX500	23/08/2024 17:45:00.000	5591.44	15	DJConsolidation at support	Y	[NULL]	?	[NULL]	23/08/2024 18:00:08.560	[NULL]	N	[NULL]	c:\viatrader\config\esp4\viatrader_esp4_stocknews_win-463mdasm2tr_esp_priceaction_101
+6911	SPX500	23/08/2024 17:15:00.000	5596.92	15	RFXBreakdown through short term swing low support level	Y	5635.6699	?	23/08/2024 23:07:37.747	23/08/2024 17:41:33.750	47	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+6825	SPX500	23/08/2024 17:15:00.000	5599.68	15	INVESTSupport, prior swing low	Y	5635.6699	?	23/08/2024 23:07:37.747	23/08/2024 17:32:46.963	48	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rcs
+6820	SPX500	23/08/2024 17:15:00.000	5599.68	15	FXPrice at short term swing low support level	Y	5635.6699	?	23/08/2024 23:07:37.747	23/08/2024 17:32:44.370	48	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rcs
+6815	SPX500	23/08/2024 17:15:00.000	5599.68	15	RFXPrice at short term swing low support level	Y	5635.6699	?	23/08/2024 23:07:37.747	23/08/2024 17:32:37.120	47	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+6812	SPX500	23/08/2024 17:15:00.000	5599.68	15	FXBreakdown through short term swing low support level	Y	5635.6699	?	23/08/2024 23:07:37.747	23/08/2024 17:32:33.603	47	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+
+2892	SPX500	23/08/2024 10:00:00.000	5599.18	30	AAAVolume spike short	Y	5635.6699	?	23/08/2024 23:07:37.747	23/08/2024 10:41:26.470	62	N	Bullish_32x64	bullish
+2882	SPX500	23/08/2024 10:15:00.000	5598.67	15	IANEWSTrading near the high	Y	5635.6699	?	23/08/2024 23:07:37.747	23/08/2024 10:38:43.527	62	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rcs
+
+
+
+
+-- afternoon matching dip trades 
+2091	US30	23/08/2024 17:45:00.000	40871.1	15	InfoPrice falling on reducing volume	Y	[NULL]	?	[NULL]	23/08/2024 18:00:12.523	[NULL]	N	[NULL]	c:\viatrader\config\esp4\viatrader_esp4_stocknews_win-463mdasm2tr_esp_priceaction_101
+7067	US30	23/08/2024 17:40:00.000	40876.1	10	ISTRATEGYTake a breath short	Y	41181.1289	A	23/08/2024 23:59:05.623	23/08/2024 17:59:32.473	38	N	Bullish_32x64	bullish/oversold
