@@ -1,0 +1,30 @@
+
+SELECT * 
+FROM esp..a 
+WHERE stock = 'us30'
+  AND dbdate > DATEADD(MINUTE, 870, CAST(FLOOR(CAST(GETDATE()-1 AS FLOAT)) AS DATETIME))
+  and modulename like '%vol%'
+ORDER BY price,dbdate DESC;
+
+ID	Stock	AlertTime	Price	TimePeriod	ModuleName	TradeLive	ExitPrice	WinOrLose	ExitTime	DBDate	NumberOfShares	ProfitsTaken	Comments	Gif
+2091	US30	23/08/2024 17:45:00.000	40871.1	15	InfoPrice falling on reducing volume	Y	[NULL]	?	[NULL]	23/08/2024 18:00:12.523	[NULL]	N	[NULL]	c:\viatrader\config\esp4\viatrader_esp4_stocknews_win-463mdasm2tr_esp_priceaction_101
+4827	US30	23/08/2024 14:30:00.000	40902.1	10	INVESTVolume reversal short	Y	41181.1289	?	24/08/2024 22:31:10.360	23/08/2024 14:47:32.703	55	N	Bullish_32x64	bullish
+1427	US30	23/08/2024 14:30:00.000	40905.1	15	InfoPrice falling on increasing volume	Y	[NULL]	?	[NULL]	23/08/2024 14:48:26.263	[NULL]	N	[NULL]	c:\viatrader\config\esp4\viatrader_esp4_stocknews_win-463mdasm2tr_esp_priceaction_101
+4943	US30	23/08/2024 14:40:00.000	40932.1	5	AAAVolume spike long	Y	41181.1289	?	24/08/2024 22:31:10.360	23/08/2024 14:56:26.787	62	N	Bullish_32x64	bullish
+5004	US30	23/08/2024 14:45:00.000	40944.6	15	Volume spike long	Y	41181.1289	?	24/08/2024 22:31:10.360	23/08/2024 14:59:52.087	64	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rcs
+5225	US30	23/08/2024 15:00:00.000	40973.1	15	Volume spike short	Y	41181.1289	?	24/08/2024 22:31:10.360	23/08/2024 15:14:51.120	59	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rcs
+2226	US30	23/08/2024 18:30:00.000	41029.1	15	InfoPrice rising on reducing volume	Y	[NULL]	?	[NULL]	23/08/2024 18:48:12.627	[NULL]	N	[NULL]	c:\viatrader\config\esp4\viatrader_esp4_stocknews_win-463mdasm2tr_esp_priceaction_101
+6130	US30	23/08/2024 15:50:00.000	41035.6	10	AAAVolume spike long	Y	41181.1289	[NULL]	24/08/2024 22:31:10.360	23/08/2024 16:11:26.660	58	N	Bullish_32x64	bullish
+6130	US30	23/08/2024 15:50:00.000	41035.6	10	AAAVolume spike long	Y	41181.1289	?	24/08/2024 22:31:10.360	23/08/2024 16:11:26.660	51	N	Bullish_32x64	bullish
+7682	US30	23/08/2024 20:00:00.000	41065.6	5	AAAVolume spike short	Y	41181.1289	?	24/08/2024 22:31:10.360	23/08/2024 20:17:26.733	50	N	Bullish_32x64	bullish
+7679	US30	23/08/2024 20:00:00.000	41065.6	5	AAAVolume spike long	Y	41181.1289	?	24/08/2024 22:31:10.360	23/08/2024 20:17:26.640	75	N	Bullish_32x64	bullish
+6264	US30	23/08/2024 16:00:00.000	41080.1	15	AAAVolume spike short	Y	41181.1289	?	24/08/2024 22:31:10.360	23/08/2024 16:23:43.070	61	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rcs
+6259	US30	23/08/2024 16:00:00.000	41080.1	15	AAAVolume spike long	Y	41181.1289	?	24/08/2024 22:31:10.360	23/08/2024 16:23:42.977	61	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rcs
+7758	US30	23/08/2024 20:10:00.000	41112.1	10	AAAVolume spike long	Y	41181.1289	[NULL]	24/08/2024 22:31:10.360	23/08/2024 20:32:26.717	78	N	Bullish_32x64	bullish
+7758	US30	23/08/2024 20:10:00.000	41112.1	10	AAAVolume spike long	Y	41181.1289	[NULL]	24/08/2024 22:31:10.360	23/08/2024 20:32:26.717	82	N	Bullish_32x64	bullish
+7758	US30	23/08/2024 20:10:00.000	41112.1	10	AAAVolume spike long	Y	41181.1289	?	24/08/2024 22:31:10.360	23/08/2024 20:32:26.717	61	N	Bullish_32x64	bullish
+5686	US30	23/08/2024 15:20:00.000	41123.1	5	AAAVolume spike short	Y	41181.1289	?	24/08/2024 22:31:10.360	23/08/2024 15:38:26.860	79	N	Bullish_32x64	bullish
+7870	US30	23/08/2024 20:30:00.000	41130.6	10	AAAVolume spike short	Y	41181.1289	?	24/08/2024 22:31:10.360	23/08/2024 20:53:26.663	80	N	Bullish_32x64	bullish
+1862	US30	23/08/2024 16:30:00.000	41170.1	15	InfoPrice rising on reducing volume	Y	[NULL]	?	[NULL]	23/08/2024 16:45:10.783	[NULL]	N	[NULL]	c:\viatrader\config\esp4\viatrader_esp4_stocknews_win-463mdasm2tr_esp_priceaction_101
+2810	US30	23/08/2024 21:30:00.000	41177.1	15	InfoPrice rising on reducing volume	Y	[NULL]	?	[NULL]	23/08/2024 21:45:12.597	[NULL]	N	[NULL]	c:\viatrader\config\esp4\viatrader_esp4_stocknews_win-463mdasm2tr_esp_priceaction_101
+3211	US30	23/08/2024 21:30:00.000	41181.1	15	InfoPrice rising on reducing volume	Y	[NULL]	?	[NULL]	23/08/2024 23:48:11.823	[NULL]	N	[NULL]	c:\viatrader\config\esp4\viatrader_esp4_stocknews_win-463mdasm2tr_esp_priceaction_101
