@@ -1,0 +1,163 @@
+
+SELECT * 
+FROM esp..a 
+WHERE --stock = 'us30'
+  --AND dbdate > DATEADD(MINUTE, 870, CAST(FLOOR(CAST(GETDATE()-1 AS FLOAT)) AS DATETIME))
+stock like '%nas100%'
+  AND timeperiod=15
+
+
+ORDER BY stock, dbdate DESC;
+
+Certainly! Here are the alerts associated with each of the top 10 strategy combinations based on the data provided:
+
+1. Price at Swing High/Low + Volume Spike
+Alerts:
+Price at Short Term Swing High Resistance Level (FXPrice at short term swing high resistance level)
+Volume Spike Long/Short (AAAVolume spike long, Volume spike short)
+2. RSI Overbought/Oversold + Resistance/Support Breaks
+Alerts:
+RSI Overbought More Than 75 (INVESTRSI overbought more than 75)
+Resistance Break Prior Swing High (DJResistance break prior swing high)
+Resistance Breakout, Prior Swing Low (INVESTResistance breakout, prior swing low)
+3. Pullback and Breakout + Falling Trendline Break
+Alerts:
+Pullback and Breakout (RFXPullback and breakout)
+Falling Trendline Break - 3 Point (Falling trendline break - 3 point)
+4. Contracting Days + Verified Breakout/Breakdown
+Alerts:
+Contracting 3 Days (DJContracting 3 days)
+Verified Breakout/Breakdown (INVESTVerified breakout, INVESTVerified breakdown)
+5. Falling Trendline Break + Moving Average Cross
+Alerts:
+Falling Trendline Break - 3 Point (Falling trendline break - 3 point)
+Moving Average Cross (This is implied by the chart and would be recognized visually on the moving averages crossing each other on the chart, though not explicitly listed as an alert.)
+6. Volume Spike + RSI Overbought/Oversold
+Alerts:
+Volume Spike Long/Short (AAAVolume spike long, Volume spike short)
+RSI Overbought More Than 75 (INVESTRSI overbought more than 75)
+7. Support/Resistance Breaks + Reversal Patterns
+Alerts:
+Resistance Break Prior Swing High (DJResistance break prior swing high)
+Reversal Patterns (ET Reversal 2 long, ET Reversal 2 short)
+8. Pullback and Breakout + Volume Spike
+Alerts:
+Pullback and Breakout (RFXPullback and breakout)
+Volume Spike Long/Short (AAAVolume spike long, Volume spike short)
+9. Consolidation at Resistance + RSI Overbought/Oversold
+Alerts:
+Consolidation at Resistance (DJConsolidation at resistance)
+RSI Overbought More Than 75 (INVESTRSI overbought more than 75)
+10. Moving Averages Cross + Volume Spike
+Alerts:
+Moving Average Cross (As mentioned earlier, this is implied by the chart with moving averages crossing each other.)
+Volume Spike Long/Short (AAAVolume spike long, Volume spike short)
+
+
+
+
+Stock	AlertTime	Price	TimePeriod	ModuleName
+NAS100	23/08/2024 21:45:00.000	19710.6	15	DJConsolidation at resistance
+NAS100	23/08/2024 21:30:00.000	19719.1	15	InfoPrice rising on reducing volume
+NAS100	23/08/2024 21:15:00.000	19715.3	15	DJContracting 3 days
+NAS100	23/08/2024 20:45:00.000	19720.3	15	FXPrice at short term swing high resistance level
+NAS100	23/08/2024 20:45:00.000	19720.3	15	Falling trendline break - 3 point
+NAS100	23/08/2024 20:45:00.000	19717.3	15	FXPrice at short term swing high resistance level
+NAS100	23/08/2024 20:45:00.000	19717.3	15	RFXPrice at short term swing high resistance level
+NAS100	23/08/2024 20:45:00.000	19710.3	15	InfoPrice falling on increasing volume
+NAS100	23/08/2024 20:45:00.000	19710.3	15	AAAVolume spike long
+NAS100	23/08/2024 20:30:00.000	19704.1	15	KTAThree day power play short
+NAS100	23/08/2024 20:30:00.000	19704.1	15	KTAPivot at resistance
+NAS100	23/08/2024 20:30:00.000	19699.8	15	KTAPivot at resistance
+NAS100	23/08/2024 20:30:00.000	19729.3	15	INVESTRSI overbought more than 75
+NAS100	23/08/2024 20:15:00.000	19713.0	15	DJConsolidation at resistance
+NAS100	23/08/2024 20:15:00.000	19714.5	15	INVESTResistance, prior swing high
+NAS100	23/08/2024 20:00:00.000	19669.1	15	RDFNShakeout after low
+NAS100	23/08/2024 19:45:00.000	19689.8	15	InfoPrice rising with reducing price bars
+NAS100	23/08/2024 19:00:00.000	19657.2	15	PRPivot at minor swing high resistance level
+NAS100	23/08/2024 18:30:00.000	19661.3	15	Falling trendline break - 3 point
+NAS100	23/08/2024 18:30:00.000	19659.7	15	InfoPrice rising on reducing volume
+NAS100	23/08/2024 18:15:00.000	19616.8	15	DJContracting 3 days
+NAS100	23/08/2024 17:30:00.000	19537.7	15	RFXBreakdown through short term swing low support level
+NAS100	23/08/2024 17:30:00.000	19555.8	15	FXPrice at short term swing low support level
+NAS100	23/08/2024 17:30:00.000	19626.6	15	PRPivot at minor swing low support level
+NAS100	23/08/2024 17:30:00.000	19626.6	15	ET Reversal 2 long
+NAS100	23/08/2024 17:30:00.000	19621.7	15	KTAPivot at support
+NAS100	23/08/2024 17:30:00.000	19604.0	15	InfoPrice falling on reducing volume
+NAS100	23/08/2024 17:15:00.000	19590.5	15	INVESTSupport, prior swing low
+NAS100	23/08/2024 17:00:00.000	19636.5	15	RFXPullback and breakdown after a strong move
+NAS100	23/08/2024 16:45:00.000	19644.2	15	ET Reversal 2 short
+NAS100	23/08/2024 16:00:00.000	19630.7	15	AAAVolume spike long
+NAS100	23/08/2024 16:00:00.000	19630.2	15	Matrix pullback 004 long
+NAS100	23/08/2024 15:45:00.000	19587.5	15	INVESTVerified breakdown
+NAS100	23/08/2024 15:45:00.000	19608.7	15	INEWSMoving down strongly
+NAS100	23/08/2024 15:45:00.000	19740.7	15	InfoPrice rising with reducing price bars
+NAS100	23/08/2024 15:45:00.000	19740.7	15	InfoPrice rising on reducing volume
+NAS100	23/08/2024 15:45:00.000	19740.7	15	DJContracting 3 days
+NAS100	23/08/2024 15:30:00.000	19807.2	15	INVESTRSI overbought more than 75
+NAS100	23/08/2024 15:00:00.000	19811.1	15	KTATight flag formation
+NAS100	23/08/2024 15:00:00.000	19709.5	15	INVESTVerified breakout
+NAS100	23/08/2024 15:00:00.000	19743.5	15	Volume spike long
+NAS100	23/08/2024 15:00:00.000	19743.5	15	ISTRATEGYTake a breath long
+NAS100	23/08/2024 15:00:00.000	19743.5	15	INEWSMoving up strongly
+NAS100	23/08/2024 14:30:00.000	19639.8	15	KTAVolume reversal short
+NAS100	23/08/2024 14:30:00.000	19642.2	15	INVESTVolume reversal short
+NAS100	23/08/2024 14:30:00.000	19643.1	15	RFXPullback and breakdown
+NAS100	23/08/2024 14:30:00.000	19678.2	15	Volume spike short
+NAS100	23/08/2024 14:15:00.000	19688.8	15	KTAThree day power play short
+NAS100	23/08/2024 14:15:00.000	19688.8	15	InfoPrice rising with increasing price bars
+NAS100	23/08/2024 14:00:00.000	19695.8	15	INVESTResistance breakout, prior swing high
+NAS100	23/08/2024 14:00:00.000	19688.6	15	Falling trendline break - 3 point
+NAS100	23/08/2024 13:45:00.000	19685.5	15	INVESTResistance, prior swing high
+NAS100	23/08/2024 13:45:00.000	19684.7	15	RFXPullback and breakout
+NAS100	23/08/2024 13:45:00.000	19676.7	15	Pause after strong day up
+NAS100	23/08/2024 13:30:00.000	19671.2	15	AAAVolume spike short
+NAS100	23/08/2024 13:00:00.000	19659.5	15	InfoPrice rising on increasing volume
+NAS100	23/08/2024 13:00:00.000	19666.3	15	InfoPrice rising with reducing price bars
+NAS100	23/08/2024 12:30:00.000	19664.2	15	KTAThree day power play long
+NAS100	23/08/2024 12:00:00.000	19663.2	15	PRPivot at minor swing high resistance level
+NAS100	23/08/2024 12:00:00.000	19663.5	15	ET Reversal 2 short
+NAS100	23/08/2024 12:00:00.000	19674.1	15	KTAPivot at resistance
+NAS100	23/08/2024 12:00:00.000	19672.5	15	KTAPivot at resistance
+NAS100	23/08/2024 11:45:00.000	19673.1	15	Falling trendline break - 3 point
+NAS100	23/08/2024 11:45:00.000	19675.1	15	AAAVolume spike long
+NAS100	23/08/2024 11:30:00.000	19673.3	15	DJResistance break prior swing high
+NAS100	23/08/2024 11:30:00.000	19650.1	15	DJContracting 3 days
+NAS100	23/08/2024 11:00:00.000	19661.2	15	FXPrice at short term swing high resistance level
+NAS100	23/08/2024 11:00:00.000	19662.5	15	RFXPrice at short term swing high resistance level
+NAS100	23/08/2024 11:00:00.000	19656.7	15	FXPrice at short term swing high resistance level
+NAS100	23/08/2024 11:00:00.000	19653.5	15	INVESTResistance breakout, prior swing low
+NAS100	23/08/2024 11:00:00.000	19648.7	15	InfoPrice rising with reducing price bars
+NAS100	23/08/2024 10:30:00.000	19642.5	15	INVESTResistance, prior swing low
+NAS100	23/08/2024 10:30:00.000	19637.2	15	ET Reversal 2 long
+NAS100	23/08/2024 10:30:00.000	19637.0	15	IANEWSTrading near the high
+NAS100	23/08/2024 10:15:00.000	19629.8	15	Pause after strong day down
+NAS100	23/08/2024 09:45:00.000	19637.3	15	ISTRATEGYTake a breath long
+NAS100	23/08/2024 09:45:00.000	19637.3	15	ISTRATEGYTake a breath long
+NAS100	23/08/2024 09:45:00.000	19634.5	15	InfoPrice rising on reducing volume
+NAS100	23/08/2024 09:45:00.000	19634.5	15	Falling trendline break - 3 point
+NAS100	23/08/2024 08:45:00.000	19632.7	15	InfoPrice rising with reducing price bars
+NAS100	23/08/2024 08:00:00.000	19631.3	15	INVESTResistance, prior swing high
+NAS100	23/08/2024 07:45:00.000	19617.1	15	Hammer ancillary
+NAS100	23/08/2024 07:30:00.000	19618.1	15	AAAVolume spike short
+NAS100	23/08/2024 07:30:00.000	19618.1	15	AAAVolume spike long
+NAS100	23/08/2024 07:15:00.000	19604.6	15	InfoPrice rising with increasing price bars
+NAS100	23/08/2024 07:00:00.000	19614.1	15	KTAVolume reversal long
+NAS100	23/08/2024 07:00:00.000	19614.1	15	INVESTVolume reversal long
+NAS100	23/08/2024 06:45:00.000	19617.0	15	FXShooting Star candle formation
+NAS100	23/08/2024 06:45:00.000	19617.0	15	RCSTwo up bars and a shooting star
+NAS100	23/08/2024 06:45:00.000	19617.0	15	PRPivot at minor swing high resistance level
+NAS100	23/08/2024 06:45:00.000	19617.0	15	FXShooting Star candle formation
+NAS100	23/08/2024 06:45:00.000	19617.0	15	INVESTRSI overbought more than 75
+NAS100	23/08/2024 06:45:00.000	19616.8	15	ET Reversal 2 short
+NAS100	23/08/2024 06:30:00.000	19623.5	15	RFXBreakout through short term swing low resistance level
+NAS100	23/08/2024 06:15:00.000	19618.6	15	FXPrice at short term swing low resistance level
+NAS100	23/08/2024 06:15:00.000	19618.6	15	Falling trendline break - 3 point
+NAS100	23/08/2024 06:15:00.000	19619.3	15	INVESTResistance, prior swing low
+NAS100	23/08/2024 06:15:00.000	19619.3	15	FXPrice at short term swing low resistance level
+NAS100	23/08/2024 06:15:00.000	19619.3	15	RFXPullback and breakout
+NAS100	23/08/2024 06:15:00.000	19619.3	15	RFXPrice at short term swing low resistance level
+NAS100	23/08/2024 06:00:00.000	19615.1	15	KTAThree day power play long
+NAS100	23/08/2024 06:00:00.000	19614.1	15	IANEWSTrading near the high
+
+These combinations leverage key technical indicators and patterns identified by the alerts to provide a robust trading strategy framework.
