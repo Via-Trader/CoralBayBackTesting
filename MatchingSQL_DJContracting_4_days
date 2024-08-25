@@ -1,0 +1,52 @@
+
+/*
+INVESTRSI oversold less than 25
+INEWSMoving down strongly
+INEWSMoving up strongly
+INVESTRSI overbought more than 75
+IANEWSTrading near the low
+*/
+
+SELECT DISTINCT TOP 10000
+    a.stock,
+    a.alerttime,
+    a.modulename,
+    a.timeperiod,
+    5608 ORL, 5614 ORH,
+    a.price,
+    CASE
+        WHEN EXISTS (
+            SELECT 1
+            FROM esp..a AS b
+            WHERE
+                b.stock = a.stock
+                AND ABS(DATEDIFF(SECOND, b.alerttime, a.alerttime)) <= 3000 -- Allowing a 5-minute wiggle room
+                AND b.modulename = a.modulename -- Ensure it matches the modulename from the main query
+                 AND b.modulename IN ('DJContracting 3 days','DJContracting 4 days') and stock='spx500'
+                AND b.timeperiod in (15,30)
+        ) THEN 'Yes'
+        ELSE 'No'
+    END AS IsInExistsClause
+FROM
+    esp..a AS a
+WHERE
+    a.timeperiod in (30) and stock='spx500'
+   /* AND a.modulename IN (
+        'Matrix pullback 004 long',
+        'INVESTVolume reversal short',
+        'INVESTRSI oversold less than 25',
+        'ISTRATEGYTake a breath long',
+        'ISTRATEGYTake a breath short','IANEWSTrading near the low','INVESTRSI overbought more than 75','INEWSMoving up strongly','INEWSMoving down strongly','INVESTRSI oversold less than 25'
+    ) */
+    AND EXISTS (
+        SELECT 1
+        FROM esp..a AS b
+        WHERE
+            b.stock = a.stock
+            AND ABS(DATEDIFF(SECOND, b.alerttime, a.alerttime)) <= 3000 -- Allowing a 5-minute wiggle room
+            AND b.modulename IN ('DJContracting 3 days','DJContracting 4 days') and stock='spx500'
+            AND b.timeperiod in (15,30)
+    )
+ORDER BY
+
+a.alerttime DESC;
