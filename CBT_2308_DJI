@@ -28,3 +28,24 @@ ID	Stock	AlertTime	Price	TimePeriod	ModuleName	TradeLive	ExitPrice	WinOrLose	Exi
 1862	US30	23/08/2024 16:30:00.000	41170.1	15	InfoPrice rising on reducing volume	Y	[NULL]	?	[NULL]	23/08/2024 16:45:10.783	[NULL]	N	[NULL]	c:\viatrader\config\esp4\viatrader_esp4_stocknews_win-463mdasm2tr_esp_priceaction_101
 2810	US30	23/08/2024 21:30:00.000	41177.1	15	InfoPrice rising on reducing volume	Y	[NULL]	?	[NULL]	23/08/2024 21:45:12.597	[NULL]	N	[NULL]	c:\viatrader\config\esp4\viatrader_esp4_stocknews_win-463mdasm2tr_esp_priceaction_101
 3211	US30	23/08/2024 21:30:00.000	41181.1	15	InfoPrice rising on reducing volume	Y	[NULL]	?	[NULL]	23/08/2024 23:48:11.823	[NULL]	N	[NULL]	c:\viatrader\config\esp4\viatrader_esp4_stocknews_win-463mdasm2tr_esp_priceaction_101
+
+
+-- overbought DJI alerts RDFN + RFX + RSI combo was the best alert up 
+
+SELECT * 
+FROM esp..a 
+WHERE stock = 'us30'
+  --AND dbdate > DATEADD(MINUTE, 870, CAST(FLOOR(CAST(GETDATE()-1 AS FLOAT)) AS DATETIME))
+  and modulename not like '%vol%'
+ORDER BY price,dbdate DESC;
+
+
+6367	US30	23/08/2024 16:15:00.000	41186.1	15	RDFNSloppy consolidation break	Y	41181.1289	A	25/08/2024 08:35:22.127	23/08/2024 16:32:50.103	67	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rcs
+6355	US30	23/08/2024 16:15:00.000	41186.1	15	RFXPullback and breakout	Y	41181.1289	?	25/08/2024 08:35:22.127	23/08/2024 16:32:36.910	76	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+6350	US30	23/08/2024 16:15:00.000	41186.1	15	RFXBreakout through short term swing high resistance level	Y	41181.1289	?	25/08/2024 08:35:22.127	23/08/2024 16:32:33.457	64	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+
+6542	US30	23/08/2024 16:40:00.000	41171.1	5	INVESTRSI overbought more than 75	Y	41181.1289	[NULL]	25/08/2024 08:35:22.127	23/08/2024 16:56:29.420	64	N	Bullish_32x64	bullish
+6542	US30	23/08/2024 16:40:00.000	41171.1	5	INVESTRSI overbought more than 75	Y	41181.1289	?	25/08/2024 08:35:22.127	23/08/2024 16:56:29.420	76	N	Bullish_32x64	bullish
+
+
+
