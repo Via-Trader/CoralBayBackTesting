@@ -1,0 +1,56 @@
+SELECT * 
+FROM esp..a 
+WHERE --stock = 'us30'
+  --AND dbdate > DATEADD(MINUTE, 870, CAST(FLOOR(CAST(GETDATE()-1 AS FLOAT)) AS DATETIME))
+  --AND 
+  modulename NOT LIKE '%vol%'
+  AND timeperiod=15
+  AND modulename IN (
+    'RDFNSloppy consolidation break',
+    'RFXPullback and breakout',
+    'RFXBreakout through short term swing high resistance level',
+    'INVESTRSI overbought more than 75'
+  )
+ORDER BY dbdate DESC;
+
+
+
+ID	Stock	AlertTime	Price	TimePeriod	ModuleName	TradeLive	ExitPrice	WinOrLose	ExitTime	DBDate	NumberOfShares	ProfitsTaken	Comments	Gif
+8251	US2000	23/08/2024 21:15:00.000	2222.09	15	RFXBreakout through short term swing high resistance level	Y	2220.9502	?	25/08/2024 10:34:56.503	23/08/2024 21:41:34.170	57	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+8251	US2000	23/08/2024 21:15:00.000	2222.09	15	RFXBreakout through short term swing high resistance level	Y	2220.9502	?	25/08/2024 10:34:56.503	23/08/2024 21:41:34.170	78	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+8020	US2000	23/08/2024 20:45:00.000	2219.98	15	RFXPullback and breakout	Y	2220.9502	A	25/08/2024 10:34:56.503	23/08/2024 21:11:38.260	57	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+7820	NAS100	23/08/2024 20:30:00.000	19729.3	15	INVESTRSI overbought more than 75	Y	19710.6016	T	25/08/2024 10:34:56.503	23/08/2024 20:44:47.070	67	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rcs
+7745	DAX-I-DTB	23/08/2024 20:15:00.000	18614.8	15	INVESTRSI overbought more than 75	Y	[NULL]	?	[NULL]	23/08/2024 20:29:29.417	[NULL]	N	[NULL]	[NULL]
+7673	US30	23/08/2024 20:00:00.000	41073.1	15	INVESTRSI overbought more than 75	Y	41181.1289	?	25/08/2024 10:34:56.503	23/08/2024 20:14:45.400	75	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rcs
+7672	SPX500	23/08/2024 20:00:00.000	5620.92	15	INVESTRSI overbought more than 75	Y	5635.6699	?	25/08/2024 10:34:56.503	23/08/2024 20:14:45.367	74	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rcs
+6367	US30	23/08/2024 16:15:00.000	41186.1	15	RDFNSloppy consolidation break	Y	41181.1289	A	25/08/2024 10:34:56.503	23/08/2024 16:32:50.103	67	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rcs
+6355	US30	23/08/2024 16:15:00.000	41186.1	15	RFXPullback and breakout	Y	41181.1289	?	25/08/2024 10:34:56.503	23/08/2024 16:32:36.910	76	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+6350	US30	23/08/2024 16:15:00.000	41186.1	15	RFXBreakout through short term swing high resistance level	Y	41181.1289	?	25/08/2024 10:34:56.503	23/08/2024 16:32:33.457	64	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+6289	GbPuSd	23/08/2024 16:00:00.000	1.3217	15	RDFNSloppy consolidation break	Y	1.3216	?	25/08/2024 10:34:56.503	23/08/2024 16:26:34.633	80	N	Bullish_32x64	bullish
+5797	NAS100	23/08/2024 15:30:00.000	19807.2	15	INVESTRSI overbought more than 75	Y	19710.6016	T	25/08/2024 10:34:56.503	23/08/2024 15:44:48.210	78	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rcs
+5792	US2000	23/08/2024 15:30:00.000	2212.29	15	RDFNSloppy consolidation break	Y	2220.9502	A	25/08/2024 10:34:56.503	23/08/2024 15:44:33.430	76	N	Bullish_32x64	bullish
+5792	US2000	23/08/2024 15:30:00.000	2212.29	15	RDFNSloppy consolidation break	Y	2220.9502	A	25/08/2024 10:34:56.503	23/08/2024 15:44:33.430	77	N	Bullish_32x64	bullish
+5790	GbPuSd	23/08/2024 15:30:00.000	1.31937	15	INVESTRSI overbought more than 75	Y	1.3216	?	25/08/2024 10:34:56.503	23/08/2024 15:44:29.397	82	N	Bullish_32x64	bullish
+5035	US2000	23/08/2024 14:45:00.000	2173.84	15	INVESTRSI overbought more than 75	Y	2220.9502	?	25/08/2024 10:34:56.503	23/08/2024 15:02:30.783	64	N	Bullish_32x64	bullish
+5035	US2000	23/08/2024 14:45:00.000	2173.84	15	INVESTRSI overbought more than 75	Y	2220.9502	?	25/08/2024 10:34:56.503	23/08/2024 15:02:30.783	75	N	Bullish_32x64	bullish
+5035	US2000	23/08/2024 14:45:00.000	2173.84	15	INVESTRSI overbought more than 75	Y	2220.9502	?	25/08/2024 10:34:56.503	23/08/2024 15:02:30.783	76	N	Bullish_32x64	bullish
+4441	SPX500	23/08/2024 13:45:00.000	5610.69	15	RFXPullback and breakout	Y	5635.6699	?	25/08/2024 10:34:56.503	23/08/2024 14:05:37.313	64	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+4440	NAS100	23/08/2024 13:45:00.000	19684.7	15	RFXPullback and breakout	Y	19710.6016	?	25/08/2024 10:34:56.503	23/08/2024 14:05:37.283	60	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+3539	US30	23/08/2024 11:45:00.000	40893.1	15	INVESTRSI overbought more than 75	Y	41181.1289	?	25/08/2024 10:34:56.503	23/08/2024 11:59:43.873	66	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rcs
+3537	SPX500	23/08/2024 11:45:00.000	5609.17	15	INVESTRSI overbought more than 75	Y	5635.6699	?	25/08/2024 10:34:56.503	23/08/2024 11:59:43.810	75	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rcs
+3494	US2000	23/08/2024 11:30:00.000	2166.64	15	RFXPullback and breakout	Y	2220.9502	A	25/08/2024 10:34:56.503	23/08/2024 11:56:36.960	61	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+3460	US30	23/08/2024 11:30:00.000	40874.1	15	RFXPullback and breakout	Y	41181.1289	?	25/08/2024 10:34:56.503	23/08/2024 11:53:37.040	76	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+2962	DAX-I-DTB	23/08/2024 10:30:00.000	18596.8	15	INVESTRSI overbought more than 75	Y	[NULL]	?	[NULL]	23/08/2024 10:47:29.337	[NULL]	N	[NULL]	[NULL]
+2855	GbPuSd	23/08/2024 10:15:00.000	1.31333	15	RDFNSloppy consolidation break	Y	1.3216	?	25/08/2024 10:34:56.503	23/08/2024 10:35:34.473	79	N	Bullish_32x64	bullish
+2317	DAX-I-DTB	23/08/2024 09:15:00.000	18566.8	15	RDFNSloppy consolidation break	Y	[NULL]	?	[NULL]	23/08/2024 09:38:33.407	[NULL]	N	[NULL]	[NULL]
+1510	US2000	23/08/2024 08:00:00.000	2164.33	15	RFXBreakout through short term swing high resistance level	Y	2220.9502	?	25/08/2024 10:34:56.503	23/08/2024 08:23:37.467	63	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+1175	GbPuSd	23/08/2024 07:45:00.000	1.31218	15	INVESTRSI overbought more than 75	Y	1.3216	?	25/08/2024 10:34:56.503	23/08/2024 07:59:30.687	79	N	Bullish_32x64	bullish
+860	US30	23/08/2024 07:15:00.000	40833.1	15	INVESTRSI overbought more than 75	Y	41181.1289	?	25/08/2024 10:34:56.503	23/08/2024 07:29:44.997	65	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rcs
+697	US2000	23/08/2024 07:00:00.000	2162.8	15	RFXPullback and breakout	Y	2220.9502	A	25/08/2024 10:34:56.503	23/08/2024 07:20:36.930	65	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+435	SPX500	23/08/2024 06:45:00.000	5595.94	15	INVESTRSI overbought more than 75	Y	5635.6699	?	25/08/2024 10:34:56.503	23/08/2024 06:59:42.837	77	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rcs
+434	NAS100	23/08/2024 06:45:00.000	19617.0	15	INVESTRSI overbought more than 75	Y	19710.6016	?	25/08/2024 10:34:56.503	23/08/2024 06:59:42.820	66	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rcs
+309	US30	23/08/2024 06:30:00.000	40819.1	15	RFXPullback and breakout	Y	41181.1289	?	25/08/2024 10:34:56.503	23/08/2024 06:50:36.487	63	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+205	NAS100	23/08/2024 06:15:00.000	19619.3	15	RFXPullback and breakout	Y	19710.6016	?	25/08/2024 10:34:56.503	23/08/2024 06:41:36.757	76	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+147	SPX500	23/08/2024 06:15:00.000	5596.18	15	RFXPullback and breakout	Y	5635.6699	[NULL]	25/08/2024 10:34:56.503	23/08/2024 06:35:36.453	79	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+147	SPX500	23/08/2024 06:15:00.000	5596.18	15	RFXPullback and breakout	Y	5635.6699	?	25/08/2024 10:34:56.503	23/08/2024 06:35:36.453	79	N	Bullish_32x64	c:\viatrader\config\esp4\viatrader_esp4_rfx
+111	DAX-I-DTB	23/08/2024 06:15:00.000	18495.8	15	INVESTRSI overbought more than 75	Y	[NULL]	?	[NULL]	23/08/2024 06:32:29.377	[NULL]	N	[NULL]	[NULL]
