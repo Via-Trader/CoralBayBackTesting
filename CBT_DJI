@@ -1,0 +1,32 @@
+ID	Stock	AlertTime	Price	TimePeriod	ModuleName
+
+-- long better
+2473	US30	23/08/2024 19:45:00.000	41068.6	15	DJContracting 3 days
+-- long poor
+2226	US30	23/08/2024 18:30:00.000	41029.1	15	InfoPrice rising on reducing volume
+-- long
+2091	US30	23/08/2024 17:45:00.000	40871.1	15	InfoPrice falling on reducing volume
+
+-- shorts
+1862	US30	23/08/2024 16:30:00.000	41170.1	15	InfoPrice rising on reducing volume
+1674	US30	23/08/2024 15:45:00.000	41068.1	15	DJContracting 3 days
+
+-- no trade
+1106	US30	23/08/2024 12:30:00.000	40880.1	15	InfoPrice falling on reducing volume
+728	US30	23/08/2024 10:15:00.000	40852.1	15	DJContracting 3 days
+610	US30	23/08/2024 09:45:00.000	40838.6	15	InfoPrice rising on reducing volume
+22	US30	23/08/2024 06:15:00.000	40814.1	15	DJContracting 3 days
+4	US30	23/08/2024 06:00:00.000	40812.1	15	InfoPrice falling on reducing volume
+
+
+
+SELECT * 
+FROM esp..a 
+WHERE modulename IN (
+    'DJContracting 3 days',
+    'DJContracting 4 days',
+    'InfoPrice rising on reducing volume',
+    'InfoPrice falling on reducing volume'
+)
+and timeperiod>14 and stock='us30'
+order by dbdate desc
