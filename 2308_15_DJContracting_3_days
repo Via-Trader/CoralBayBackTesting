@@ -1,0 +1,25 @@
+
+select * from esp..a where modulename='DJContracting 3 days' order by dbdate desc
+
+Stock	AlertTime	Price	TimePeriod	ModuleName
+SPX500	23/08/2024 21:15:00.000	5634.44	15	DJContracting 3 days
+NAS100	23/08/2024 21:15:00.000	19715.3	15	DJContracting 3 days
+US2000	23/08/2024 20:45:00.000	2216.35	15	DJContracting 3 days
+US30	23/08/2024 19:45:00.000	41068.6	15	DJContracting 3 days
+US2000	23/08/2024 18:30:00.000	2218.0	15	DJContracting 3 days
+NAS100	23/08/2024 18:15:00.000	19616.8	15	DJContracting 3 days
+US30	23/08/2024 15:45:00.000	41068.1	15	DJContracting 3 days
+NAS100	23/08/2024 15:45:00.000	19740.7	15	DJContracting 3 days
+SPX500	23/08/2024 15:30:00.000	5641.19	15	DJContracting 3 days
+US2000	23/08/2024 12:00:00.000	2164.64	15	DJContracting 3 days
+GBPUSD	23/08/2024 12:00:00.000	1.3122	30	DJContracting 3 days
+NAS100	23/08/2024 11:30:00.000	19650.1	15	DJContracting 3 days
+US30	23/08/2024 10:15:00.000	40852.1	15	DJContracting 3 days
+US2000	23/08/2024 09:45:00.000	2162.04	15	DJContracting 3 days
+GER30	23/08/2024 08:20:00.000	18534.8	10	DJContracting 3 days
+SPX500	23/08/2024 08:00:00.000	5596.29	15	DJContracting 3 days
+GER30	23/08/2024 07:30:00.000	18512.8	5	DJContracting 3 days
+US2000	23/08/2024 07:30:00.000	2162.45	15	DJContracting 3 days
+US2000	23/08/2024 07:20:00.000	2162.55	5	DJContracting 3 days
+US30	23/08/2024 07:15:00.000	40833.1	5	DJContracting 3 days
+US30	23/08/2024 06:15:00.000	40814.1	15	DJContracting 3 days
