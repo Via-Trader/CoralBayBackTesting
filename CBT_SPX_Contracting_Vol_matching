@@ -1,0 +1,70 @@
+15min
+
+SPX500	23/08/2024 15:45:00.000	5628.44	15	InfoPrice falling on reducing volume
+SPX500	23/08/2024 15:45:00.000	5628.44	15	DJContracting 4 days
+
+SPX500	23/08/2024 08:45:00.000	5597.18	15	InfoPrice falling on reducing volume
+SPX500	23/08/2024 08:45:00.000	5597.18	15	DJContracting 4 days
+
+
+select * from esp..a where modulename in ('DJContracting 3 days','DJContracting 4 days') and stock='spx500'
+union
+
+
+SELECT * 
+FROM esp..a 
+WHERE stock = 'spx500'
+  --AND dbdate > DATEADD(MINUTE, 870, CAST(FLOOR(CAST(GETDATE()-1 AS FLOAT)) AS DATETIME))
+  and modulename like '%vol%'
+ORDER BY dbdate DESC;
+
+Stock	AlertTime	Price	TimePeriod	ModuleName
+SPX500	23/08/2024 21:30:00.000	5635.67	15	InfoPrice rising on reducing volume
+SPX500	23/08/2024 21:30:00.000	5636.43	15	InfoPrice rising on reducing volume
+SPX500	23/08/2024 21:15:00.000	5634.44	15	DJContracting 3 days
+SPX500	23/08/2024 20:45:00.000	5633.43	15	AAAVolume spike long
+SPX500	23/08/2024 18:30:00.000	5616.94	15	InfoPrice rising on reducing volume
+SPX500	23/08/2024 17:00:00.000	5604.18	30	AAAVolume spike short
+SPX500	23/08/2024 17:00:00.000	5604.18	30	AAAVolume spike short
+SPX500	23/08/2024 17:00:00.000	5604.18	30	AAAVolume spike long
+SPX500	23/08/2024 16:15:00.000	5627.18	15	AAAVolume spike short
+SPX500	23/08/2024 15:30:00.000	5603.67	30	AAAVolume spike short
+SPX500	23/08/2024 15:45:00.000	5628.44	15	InfoPrice rising on reducing volume
+SPX500	23/08/2024 15:45:00.000	5628.44	15	InfoPrice falling on reducing volume
+SPX500	23/08/2024 15:45:00.000	5628.44	15	DJContracting 4 days
+SPX500	23/08/2024 15:30:00.000	5629.29	30	AAAVolume spike long
+SPX500	23/08/2024 15:30:00.000	5629.29	30	AAAVolume spike long
+SPX500	23/08/2024 15:30:00.000	5629.29	30	AAAVolume spike long
+SPX500	23/08/2024 15:30:00.000	5641.19	15	DJContracting 3 days
+SPX500	23/08/2024 15:15:00.000	5638.8	15	Volume spike long
+SPX500	23/08/2024 15:00:00.000	5628.92	30	INVESTVolume reversal long
+SPX500	23/08/2024 14:30:00.000	5603.17	15	KTAVolume reversal short
+SPX500	23/08/2024 14:30:00.000	5602.69	15	INVESTVolume reversal short
+SPX500	23/08/2024 14:30:00.000	5602.17	30	INVESTVolume reversal short
+SPX500	23/08/2024 14:30:00.000	5606.18	15	Volume spike short
+SPX500	23/08/2024 14:00:00.000	5610.94	30	AAAVolume spike short
+SPX500	23/08/2024 13:45:00.000	5611.18	15	InfoPrice rising on increasing volume
+SPX500	23/08/2024 13:30:00.000	5611.19	30	AAAVolume spike long
+SPX500	23/08/2024 13:30:00.000	5611.19	30	AAAVolume spike long
+SPX500	23/08/2024 12:00:00.000	5604.69	30	AAAVolume spike short
+SPX500	23/08/2024 12:00:00.000	5604.69	30	AAAVolume spike short
+SPX500	23/08/2024 12:00:00.000	5604.69	30	AAAVolume spike short
+SPX500	23/08/2024 12:00:00.000	5604.69	30	AAAVolume spike short
+SPX500	23/08/2024 12:00:00.000	5606.68	15	AAAVolume spike short
+SPX500	23/08/2024 12:00:00.000	5606.68	15	AAAVolume spike long
+SPX500	23/08/2024 11:00:00.000	5602.18	15	InfoPrice rising on reducing volume
+SPX500	23/08/2024 10:00:00.000	5599.18	30	AAAVolume spike short
+SPX500	23/08/2024 09:30:00.000	5600.69	30	AAAVolume spike long
+SPX500	23/08/2024 09:00:00.000	5595.18	15	InfoPrice falling on increasing volume
+SPX500	23/08/2024 08:30:00.000	5595.68	30	AAAVolume spike short
+SPX500	23/08/2024 08:45:00.000	5597.18	15	InfoPrice rising on reducing volume
+SPX500	23/08/2024 08:45:00.000	5597.18	15	InfoPrice falling on reducing volume
+SPX500	23/08/2024 08:45:00.000	5597.18	15	DJContracting 4 days
+SPX500	23/08/2024 08:30:00.000	5596.93	15	Volume spike long
+SPX500	23/08/2024 08:15:00.000	5596.17	15	Volume spike short
+SPX500	23/08/2024 08:00:00.000	5596.42	30	AAAVolume spike long
+SPX500	23/08/2024 08:00:00.000	5596.29	15	DJContracting 3 days
+SPX500	23/08/2024 07:00:00.000	5597.19	15	AAAVolume spike short
+SPX500	23/08/2024 07:00:00.000	5597.19	15	AAAVolume spike long
+
+
