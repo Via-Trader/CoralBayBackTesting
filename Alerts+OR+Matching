@@ -1,49 +1,68 @@
 
-
+create view matching_or_spx_v as 
 SELECT DISTINCT TOP 10000
     a.stock,
-    orh,orl,
+    CAST(b.orh AS FLOAT) AS orl,
+    CAST(b.orl AS FLOAT) AS orh,
+    CASE
+        WHEN (a.price >= CAST(b.orh AS FLOAT) AND a.price <= CAST(b.orl AS FLOAT)) THEN 'ORRangeBound'
+        ELSE ''
+    END AS ORStatus,
     a.alerttime,
     a.modulename,
     a.timeperiod,
-    5608 ORL, 5614 ORH,
     a.price,
     CASE
         WHEN EXISTS (
             SELECT 1
-            FROM esp..a AS b
+            FROM esp..a AS c
             WHERE
-                b.stock = a.stock
-                AND ABS(DATEDIFF(SECOND, b.alerttime, a.alerttime)) <= 3000 -- Allowing a 5-minute wiggle room
-                AND b.modulename = a.modulename -- Ensure it matches the modulename from the main query
-                AND b.modulename IN ('AAAVolume spike long','InfoPrice rising on reducing volume','DJContracting 3 days','DJContracting 4 days','ISTRATEGYTake a breath short') and stock='spx500'
-                AND b.timeperiod in (15)
+                c.stock = a.stock
+                AND ABS(DATEDIFF(SECOND, c.alerttime, a.alerttime)) <= 3000 -- Allowing a 5-minute window
+                AND c.modulename = a.modulename
+                AND c.modulename IN (
+                    'AAAVolume spike long',
+                    'InfoPrice rising on reducing volume',
+                    'DJContracting 3 days',
+                    'DJContracting 4 days',
+                    'ISTRATEGYTake a breath short'
+                )
+                AND c.stock = 'spx500'
+                AND c.timeperiod = 15
         ) THEN '++Yes++'
         ELSE 'No'
     END AS IsInExistsClause
 FROM
-    esp..a AS a,(select top 1 symbol,orh,orl,alerttime from OR_VWap_v order by alerttime desc) as b
+    esp..a AS a
+JOIN 
+    (SELECT TOP 1 symbol, CAST(orh AS FLOAT) AS orh, CAST(orl AS FLOAT) AS orl, alerttime 
+     FROM OR_VWap_v 
+     WHERE symbol = 'spx500'
+     ORDER BY alerttime DESC) AS b
+ON 
+    a.stock = b.symbol
 WHERE
-    a.timeperiod in (15,30) and stock='spx500'
-   /* AND a.modulename IN (
-        'Matrix pullback 004 long',
-        'INVESTVolume reversal short',
-        'INVESTRSI oversold less than 25',
-        'ISTRATEGYTake a breath long',
-        'ISTRATEGYTake a breath short','IANEWSTrading near the low','INVESTRSI overbought more than 75','INEWSMoving up strongly','INEWSMoving down strongly','INVESTRSI oversold less than 25'
-    ) */
+    a.timeperiod IN (15, 30)
+    AND a.stock = 'spx500'
     AND EXISTS (
         SELECT 1
-        FROM esp..a AS b
+        FROM esp..a AS c
         WHERE
-            b.stock = a.stock
-            AND ABS(DATEDIFF(SECOND, b.alerttime, a.alerttime)) <= 3000 -- Allowing a 5-minute wiggle room
-            AND b.modulename IN ('AAAVolume spike long','InfoPrice rising on reducing volume','DJContracting 3 days','DJContracting 4 days','ISTRATEGYTake a breath short') and stock='spx500'
-            AND b.timeperiod in (15)
+            c.stock = a.stock
+            AND ABS(DATEDIFF(SECOND, c.alerttime, a.alerttime)) <= 300000 -- Allowing a 5-minute window
+            AND c.modulename IN (
+                'AAAVolume spike long',
+                'InfoPrice rising on reducing volume',
+                'DJContracting 3 days',
+                'DJContracting 4 days',
+                'ISTRATEGYTake a breath short'
+            )
+            AND c.stock = 'spx500'
+            AND c.timeperiod = 15
     )
 ORDER BY
-
-a.alerttime DESC;
+    a.alerttime DESC;
+e DESC;
 
 
 
