@@ -1,11 +1,22 @@
 
-create view matching_or_spx_v as 
+IF OBJECT_ID('dbo.matching_or_spx_v') IS NOT NULL
+BEGIN
+    DROP VIEW dbo.matching_or_spx_v
+    IF OBJECT_ID('dbo.matching_or_spx_v') IS NOT NULL
+        PRINT '<<< FAILED DROPPING VIEW dbo.matching_or_spx_v >>>'
+    ELSE
+        PRINT '<<< DROPPED VIEW dbo.matching_or_spx_v >>>'
+END
+go
+create view matching_or_spx_v as
 SELECT DISTINCT TOP 10000
     a.stock,
     CAST(b.orh AS FLOAT) AS orl,
     CAST(b.orl AS FLOAT) AS orh,
     CASE
         WHEN (a.price >= CAST(b.orh AS FLOAT) AND a.price <= CAST(b.orl AS FLOAT)) THEN 'ORRangeBound'
+        WHEN  (a.price >= CAST(b.orl AS FLOAT)) THEN 'ORLong'
+        WHEN  (a.price <= CAST(b.orh AS FLOAT)) THEN 'ORShort'
         ELSE ''
     END AS ORStatus,
     a.alerttime,
@@ -34,12 +45,12 @@ SELECT DISTINCT TOP 10000
     END AS IsInExistsClause
 FROM
     esp..a AS a
-JOIN 
-    (SELECT TOP 1 symbol, CAST(orh AS FLOAT) AS orh, CAST(orl AS FLOAT) AS orl, alerttime 
-     FROM OR_VWap_v 
+JOIN
+    (SELECT TOP 1 symbol, CAST(orh AS FLOAT) AS orh, CAST(orl AS FLOAT) AS orl, alerttime
+     FROM OR_VWap_v
      WHERE symbol = 'spx500'
      ORDER BY alerttime DESC) AS b
-ON 
+ON
     a.stock = b.symbol
 WHERE
     a.timeperiod IN (15, 30)
@@ -62,88 +73,144 @@ WHERE
     )
 ORDER BY
     a.alerttime DESC;
-e DESC;
+go
+IF OBJECT_ID('dbo.matching_or_spx_v') IS NOT NULL
+    PRINT '<<< CREATED VIEW dbo.matching_or_spx_v >>>'
+ELSE
+    PRINT '<<< FAILED CREATING VIEW dbo.matching_or_spx_v >>>'
+go
+
+IF OBJECT_ID('dbo.matching_or_spx2_v') IS NOT NULL
+BEGIN
+    DROP VIEW dbo.matching_or_spx2_v
+    IF OBJECT_ID('dbo.matching_or_spx2_v') IS NOT NULL
+        PRINT '<<< FAILED DROPPING VIEW dbo.matching_or_spx2_v >>>'
+    ELSE
+        PRINT '<<< DROPPED VIEW dbo.matching_or_spx2_v >>>'
+END
+go
+create view matching_or_spx2_v as
+select
+CASE
+    WHEN ORStatus='ORShort' and modulename='DJContracting 3 days' and timeperiod=15 THEN 'Short'
+    WHEN ORStatus='ORShort' and modulename='InfoPrice rising on reducing volume' and timeperiod=15 THEN 'Short'
+    WHEN ORStatus='ORShort' and modulename='ISTRATEGYTake a breath short' and timeperiod=15 THEN 'Long'
+    WHEN ORStatus='ORShort' and modulename='AAAVolume spike long' and timeperiod=15 THEN 'Long'
+
+    ELSE ''
+END AS TradeIdea,
+
+ * from matching_or_spx_v
+go
+IF OBJECT_ID('dbo.matching_or_spx2_v') IS NOT NULL
+    PRINT '<<< CREATED VIEW dbo.matching_or_spx2_v >>>'
+ELSE
+    PRINT '<<< FAILED CREATING VIEW dbo.matching_or_spx2_v >>>'
+go
 
 
 
 
-stock	orh	orl	alerttime	modulename	timeperiod	ORL	ORH	price	IsInExistsClause
-SPX500	5644.0	5652.0	26/08/2024 21:30:00.000	InfoPrice falling on reducing volume	15	5608	5614	5614.91	No
-SPX500	5644.0	5652.0	26/08/2024 21:30:00.000	ISTRATEGYTake a breath short	15	5608	5614	5614.29	++Yes++
-SPX500	5644.0	5652.0	26/08/2024 21:15:00.000	DJContracting 3 days	15	5608	5614	5615.92	++Yes++
-SPX500	5644.0	5652.0	26/08/2024 21:15:00.000	Pause after strong day down	15	5608	5614	5615.92	No
-SPX500	5644.0	5652.0	26/08/2024 21:00:00.000	Volume spike long	15	5608	5614	5620.05	No
-SPX500	5644.0	5652.0	26/08/2024 20:45:00.000	KTAThree day power play long	15	5608	5614	5619.53	No
-SPX500	5644.0	5652.0	26/08/2024 20:00:00.000	InfoPrice rising with reducing price bars	15	5608	5614	5621.92	No
-SPX500	5644.0	5652.0	26/08/2024 19:45:00.000	InfoPrice rising on reducing volume	15	5608	5614	5622.18	++Yes++
-SPX500	5644.0	5652.0	26/08/2024 19:15:00.000	ET Reversal 2 long	15	5608	5614	5615.18	No
-SPX500	5644.0	5652.0	26/08/2024 19:15:00.000	InfoPrice falling on reducing volume	15	5608	5614	5609.29	No
-SPX500	5644.0	5652.0	26/08/2024 19:15:00.000	KTAPivot at support	15	5608	5614	5615.18	No
-SPX500	5644.0	5652.0	26/08/2024 19:15:00.000	PRPivot at minor swing low support level	15	5608	5614	5615.18	No
-SPX500	5644.0	5652.0	26/08/2024 19:00:00.000	IANEWSTrading near the low	15	5608	5614	5608.67	No
-SPX500	5644.0	5652.0	26/08/2024 19:00:00.000	INVESTSupport, prior swing low	15	5608	5614	5605.68	No
-SPX500	5644.0	5652.0	26/08/2024 18:45:00.000	AAAVolume spike long	15	5608	5614	5607.17	++Yes++
-SPX500	5644.0	5652.0	26/08/2024 18:00:00.000	InfoPrice rising with increasing price bars	15	5608	5614	5624.93	No
-SPX500	5644.0	5652.0	26/08/2024 17:30:00.000	Falling trendline break - 3 point	15	5608	5614	5625.92	No
-SPX500	5644.0	5652.0	26/08/2024 17:30:00.000	Matrix pullback 004 long	30	5608	5614	5626.55	No
-SPX500	5644.0	5652.0	26/08/2024 16:45:00.000	Hammer ancillary	15	5608	5614	5618.03	No
-SPX500	5644.0	5652.0	26/08/2024 16:45:00.000	ISTRATEGYTake a breath short	15	5608	5614	5614.17	++Yes++
-SPX500	5644.0	5652.0	26/08/2024 16:45:00.000	RFXPullback and breakdown	15	5608	5614	5612.92	No
-SPX500	5644.0	5652.0	26/08/2024 16:15:00.000	AAAVolume spike short	15	5608	5614	5621.8	No
-SPX500	5644.0	5652.0	26/08/2024 16:15:00.000	InfoPrice rising on reducing volume	15	5608	5614	5624.3	++Yes++
-SPX500	5644.0	5652.0	26/08/2024 16:00:00.000	AAAVolume spike long	30	5608	5614	5623.41	No
-SPX500	5644.0	5652.0	26/08/2024 16:00:00.000	AAAVolume spike short	30	5608	5614	5623.79	No
-SPX500	5644.0	5652.0	26/08/2024 16:00:00.000	DJContracting 3 days	15	5608	5614	5625.16	++Yes++
-SPX500	5644.0	5652.0	26/08/2024 16:00:00.000	INVESTRSI oversold less than 25	30	5608	5614	5625.66	No
-SPX500	5644.0	5652.0	26/08/2024 16:00:00.000	Volume spike long	15	5608	5614	5625.29	No
-SPX500	5644.0	5652.0	26/08/2024 15:45:00.000	INVESTRSI oversold less than 25	15	5608	5614	5621.55	No
-SPX500	5644.0	5652.0	26/08/2024 15:30:00.000	InfoPrice falling on increasing volume	15	5608	5614	5621.43	No
-SPX500	5644.0	5652.0	26/08/2024 15:30:00.000	INVESTVerified breakdown	15	5608	5614	5622.17	No
-SPX500	5644.0	5652.0	26/08/2024 15:30:00.000	Matrix pullback 004 long	30	5608	5614	5625.43	No
-SPX500	5644.0	5652.0	26/08/2024 15:30:00.000	RFXSupport breakdown through the prior day low	15	5608	5614	5626.8	No
-SPX500	5644.0	5652.0	26/08/2024 14:15:00.000	InfoPrice rising on increasing volume	15	5608	5614	5645.66	No
-SPX500	5644.0	5652.0	26/08/2024 14:15:00.000	RFXPullback and breakout	15	5608	5614	5648.41	No
-SPX500	5644.0	5652.0	26/08/2024 14:00:00.000	AAAVolume spike long	30	5608	5614	5646.41	No
-SPX500	5644.0	5652.0	26/08/2024 14:00:00.000	AAAVolume spike short	30	5608	5614	5645.16	No
-SPX500	5644.0	5652.0	26/08/2024 14:00:00.000	ET Reversal 2 long	15	5608	5614	5646.92	No
-SPX500	5644.0	5652.0	26/08/2024 14:00:00.000	Falling trendline break - 3 point	15	5608	5614	5646.93	No
-SPX500	5644.0	5652.0	26/08/2024 14:00:00.000	Hammer ancillary	15	5608	5614	5646.92	No
-SPX500	5644.0	5652.0	26/08/2024 14:00:00.000	IANEWSTrading near the high	30	5608	5614	5646.68	No
-SPX500	5644.0	5652.0	26/08/2024 14:00:00.000	INVESTVolume reversal long	30	5608	5614	5646.55	No
-SPX500	5644.0	5652.0	26/08/2024 13:45:00.000	KTAThree day power play long	15	5608	5614	5646.04	No
-SPX500	5644.0	5652.0	26/08/2024 13:30:00.000	ET Reversal 2 short	15	5608	5614	5642.41	No
-SPX500	5644.0	5652.0	26/08/2024 13:30:00.000	InfoPrice rising on reducing volume	15	5608	5614	5643.43	++Yes++
-SPX500	5644.0	5652.0	26/08/2024 13:30:00.000	InfoPrice rising with reducing price bars	15	5608	5614	5643.43	No
-SPX500	5644.0	5652.0	26/08/2024 13:15:00.000	IANEWSTrading near the high	15	5608	5614	5646.55	No
-SPX500	5644.0	5652.0	26/08/2024 12:45:00.000	RFXPullback and breakdown	15	5608	5614	5638.92	No
-SPX500	5644.0	5652.0	26/08/2024 12:00:00.000	AAAVolume spike long	15	5608	5614	5646.93	++Yes++
-SPX500	5644.0	5652.0	26/08/2024 12:00:00.000	AAAVolume spike long	30	5608	5614	5647.03	++Yes++
-SPX500	5644.0	5652.0	26/08/2024 12:00:00.000	AAAVolume spike short	15	5608	5614	5646.93	No
-SPX500	5644.0	5652.0	26/08/2024 12:00:00.000	AAAVolume spike short	30	5608	5614	5646.93	No
-SPX500	5644.0	5652.0	26/08/2024 12:00:00.000	IANEWSTrading near the high	30	5608	5614	5647.41	No
-SPX500	5644.0	5652.0	26/08/2024 11:45:00.000	Pause after strong day down	15	5608	5614	5645.68	No
-SPX500	5644.0	5652.0	26/08/2024 11:30:00.000	INVESTRSI overbought more than 75	30	5608	5614	5644.92	No
-SPX500	5644.0	5652.0	26/08/2024 11:30:00.000	INVESTVolume reversal short	30	5608	5614	5645.68	No
-SPX500	5644.0	5652.0	26/08/2024 11:15:00.000	Falling trendline break - 3 point	15	5608	5614	5648.17	No
-SPX500	5644.0	5652.0	26/08/2024 10:00:00.000	IANEWSTrading near the high	30	5608	5614	5647.18	No
-SPX500	5644.0	5652.0	26/08/2024 10:00:00.000	KTAThree day power play short	15	5608	5614	5645.67	No
-SPX500	5644.0	5652.0	26/08/2024 09:45:00.000	DJContracting 3 days	15	5608	5614	5646.66	++Yes++
-SPX500	5644.0	5652.0	26/08/2024 09:45:00.000	InfoPrice rising on reducing volume	15	5608	5614	5646.66	++Yes++
-SPX500	5644.0	5652.0	26/08/2024 09:45:00.000	InfoPrice rising with reducing price bars	15	5608	5614	5646.66	No
-SPX500	5644.0	5652.0	26/08/2024 09:30:00.000	INVESTRSI overbought more than 75	30	5608	5614	5646.16	No
-SPX500	5644.0	5652.0	26/08/2024 09:00:00.000	AAAVolume spike long	30	5608	5614	5645.92	No
-SPX500	5644.0	5652.0	26/08/2024 09:00:00.000	ET Reversal 2 long	15	5608	5614	5645.43	No
-SPX500	5644.0	5652.0	26/08/2024 09:00:00.000	FXPrice at short term swing high resistance level	30	5608	5614	5645.16	No
-SPX500	5644.0	5652.0	26/08/2024 09:00:00.000	INVESTResistance, prior swing high	30	5608	5614	5645.16	No
-SPX500	5644.0	5652.0	26/08/2024 09:00:00.000	INVESTRSI overbought more than 75	15	5608	5614	5642.67	No
-SPX500	5644.0	5652.0	26/08/2024 09:00:00.000	INVESTVerified breakout	15	5608	5614	5646.91	No
-SPX500	5644.0	5652.0	26/08/2024 09:00:00.000	INVESTVerified breakout	30	5608	5614	5645.92	No
-SPX500	5644.0	5652.0	26/08/2024 09:00:00.000	RFXResistance breakout through the prior day high	15	5608	5614	5646.91	No
-SPX500	5644.0	5652.0	26/08/2024 08:15:00.000	Volume spike long	15	5608	5614	5639.41	No
-SPX500	5644.0	5652.0	26/08/2024 08:00:00.000	INVESTVolume reversal long	30	5608	5614	5639.29	No
-SPX500	5644.0	5652.0	26/08/2024 08:00:00.000	ISTRATEGYTake a breath long	30	5608	5614	5639.67	No
-SPX500	5644.0	5652.0	26/08/2024 07:30:00.000	AAAVolume spike long	15	5608	5614	5636.03	++Yes++
-SPX500	5644.0	5652.0	26/08/2024 07:30:00.000	AAAVolume spike long	30	5608	5614	5635.92	++Yes++
-SPX500	5644.0	5652.0	26/08/2024 07:30:00.000	AAAVolume spike short	15	5608	5614	5636.03	No
-SPX500	5644.0	5652.0	26/08/2024 07:00:00.000	RFXPullback and breakout	15	5608	5614	5637.93	No
-SPX500	5644.0	5652.0	26/08/2024 06:45:00.000	INEWSConsolidation thirty break up	15	5608	5614	5636.67	No
+TradeIdea	stock	orl	orh	ORStatus	alerttime	modulename	timeperiod	price	IsInExistsClause
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 23:00:00.000	FXShooting Star candle formation	15	5616.94	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 23:00:00.000	InfoPrice rising with increasing price bars	15	5613.95	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 21:30:00.000	InfoPrice falling on reducing volume	15	5614.91	No
+Long	SPX500	5644.0	5652.0	ORShort	26/08/2024 21:30:00.000	ISTRATEGYTake a breath short	15	5614.29	++Yes++
+Short	SPX500	5644.0	5652.0	ORShort	26/08/2024 21:15:00.000	DJContracting 3 days	15	5615.92	++Yes++
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 21:15:00.000	Pause after strong day down	15	5615.92	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 21:00:00.000	Volume spike long	15	5620.05	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 20:45:00.000	KTAThree day power play long	15	5619.53	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 20:00:00.000	InfoPrice rising with reducing price bars	15	5621.92	No
+Short	SPX500	5644.0	5652.0	ORShort	26/08/2024 19:45:00.000	InfoPrice rising on reducing volume	15	5622.18	++Yes++
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 19:15:00.000	ET Reversal 2 long	15	5615.18	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 19:15:00.000	InfoPrice falling on reducing volume	15	5609.29	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 19:15:00.000	KTAPivot at support	15	5615.18	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 19:15:00.000	PRPivot at minor swing low support level	15	5615.18	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 19:00:00.000	IANEWSTrading near the low	15	5608.67	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 19:00:00.000	INVESTSupport, prior swing low	15	5605.68	No
+Long	SPX500	5644.0	5652.0	ORShort	26/08/2024 18:45:00.000	AAAVolume spike long	15	5607.17	++Yes++
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 18:00:00.000	InfoPrice rising with increasing price bars	15	5624.93	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 17:30:00.000	Falling trendline break - 3 point	15	5625.92	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 17:30:00.000	Matrix pullback 004 long	30	5626.55	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 16:45:00.000	Hammer ancillary	15	5618.03	No
+Long	SPX500	5644.0	5652.0	ORShort	26/08/2024 16:45:00.000	ISTRATEGYTake a breath short	15	5614.17	++Yes++
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 16:45:00.000	RFXPullback and breakdown	15	5612.92	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 16:15:00.000	AAAVolume spike short	15	5621.8	No
+Short	SPX500	5644.0	5652.0	ORShort	26/08/2024 16:15:00.000	InfoPrice rising on reducing volume	15	5624.3	++Yes++
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 16:00:00.000	AAAVolume spike long	30	5623.41	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 16:00:00.000	AAAVolume spike short	30	5623.79	No
+Short	SPX500	5644.0	5652.0	ORShort	26/08/2024 16:00:00.000	DJContracting 3 days	15	5625.16	++Yes++
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 16:00:00.000	INVESTRSI oversold less than 25	30	5625.66	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 16:00:00.000	Volume spike long	15	5625.29	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 15:45:00.000	INVESTRSI oversold less than 25	15	5621.55	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 15:30:00.000	InfoPrice falling on increasing volume	15	5621.43	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 15:30:00.000	INVESTVerified breakdown	15	5622.17	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 15:30:00.000	Matrix pullback 004 long	30	5625.43	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 15:30:00.000	RFXSupport breakdown through the prior day low	15	5626.8	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 15:00:00.000	INEWSMoving down strongly	15	5636.18	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 15:00:00.000	INEWSMoving down strongly	30	5636.78	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 15:00:00.000	INVESTFalse breakout, prior swing high	30	5638.18	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 15:00:00.000	ISTRATEGYTake a breath short	30	5638.18	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 15:00:00.000	Volume spike short	15	5643.42	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 14:30:00.000	InfoPrice rising with increasing price bars	15	5648.78	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 14:30:00.000	INVESTResistance, prior swing high	30	5650.18	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 14:30:00.000	INVESTVerified breakout	30	5648.43	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 14:15:00.000	InfoPrice rising on increasing volume	15	5645.66	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 14:15:00.000	RFXPullback and breakout	15	5648.41	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 14:00:00.000	AAAVolume spike long	30	5646.41	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 14:00:00.000	AAAVolume spike short	30	5645.16	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 14:00:00.000	ET Reversal 2 long	15	5646.92	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 14:00:00.000	Falling trendline break - 3 point	15	5646.93	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 14:00:00.000	Hammer ancillary	15	5646.92	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 14:00:00.000	IANEWSTrading near the high	30	5646.68	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 14:00:00.000	INVESTVolume reversal long	30	5646.55	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 13:45:00.000	KTAThree day power play long	15	5646.04	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 13:30:00.000	ET Reversal 2 short	15	5642.41	No
+Short	SPX500	5644.0	5652.0	ORShort	26/08/2024 13:30:00.000	InfoPrice rising on reducing volume	15	5643.43	++Yes++
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 13:30:00.000	InfoPrice rising with reducing price bars	15	5643.43	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 13:15:00.000	IANEWSTrading near the high	15	5646.55	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 12:45:00.000	RFXPullback and breakdown	15	5638.92	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 12:00:00.000	AAAVolume spike long	15	5646.93	++Yes++
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 12:00:00.000	AAAVolume spike long	30	5647.03	++Yes++
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 12:00:00.000	AAAVolume spike short	15	5646.93	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 12:00:00.000	AAAVolume spike short	30	5646.93	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 12:00:00.000	IANEWSTrading near the high	30	5647.41	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 11:45:00.000	Pause after strong day down	15	5645.68	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 11:30:00.000	INVESTRSI overbought more than 75	30	5644.92	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 11:30:00.000	INVESTVolume reversal short	30	5645.68	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 11:15:00.000	Falling trendline break - 3 point	15	5648.17	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 10:45:00.000	InfoPrice falling on reducing volume	15	5646.41	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 10:00:00.000	IANEWSTrading near the high	30	5647.18	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 10:00:00.000	KTAThree day power play short	15	5645.67	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 09:45:00.000	DJContracting 3 days	15	5646.66	++Yes++
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 09:45:00.000	InfoPrice rising on reducing volume	15	5646.66	++Yes++
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 09:45:00.000	InfoPrice rising with reducing price bars	15	5646.66	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 09:30:00.000	INVESTRSI overbought more than 75	30	5646.16	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 09:00:00.000	AAAVolume spike long	30	5645.92	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 09:00:00.000	ET Reversal 2 long	15	5645.43	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 09:00:00.000	FXPrice at short term swing high resistance level	30	5645.16	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 09:00:00.000	INVESTResistance, prior swing high	30	5645.16	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 09:00:00.000	INVESTVerified breakout	15	5646.91	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 09:00:00.000	INVESTVerified breakout	30	5645.92	No
+ 	SPX500	5644.0	5652.0	ORRangeBound	26/08/2024 09:00:00.000	RFXResistance breakout through the prior day high	15	5646.91	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 09:00:00.000	INVESTRSI overbought more than 75	15	5642.67	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 08:45:00.000	FXShooting Star candle formation	15	5639.91	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 08:45:00.000	InfoPrice rising with increasing price bars	15	5643.68	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 08:45:00.000	RCSTwo up bars and a shooting star	15	5640.54	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 08:45:00.000	Volume spike short	15	5640.54	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 08:30:00.000	AAAVolume spike short	30	5639.93	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 08:30:00.000	Falling trendline break - 3 point	15	5642.16	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 08:30:00.000	IANEWSTrading near the high	15	5641.91	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 08:30:00.000	IANEWSTrading near the high	30	5641.79	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 08:15:00.000	Volume spike long	15	5639.41	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 08:00:00.000	INVESTVolume reversal long	30	5639.29	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 08:00:00.000	ISTRATEGYTake a breath long	30	5639.67	No
+Long	SPX500	5644.0	5652.0	ORShort	26/08/2024 07:30:00.000	AAAVolume spike long	15	5636.03	++Yes++
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 07:30:00.000	AAAVolume spike long	30	5635.92	++Yes++
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 07:30:00.000	AAAVolume spike short	15	5636.03	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 07:00:00.000	RFXPullback and breakout	15	5637.93	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 06:45:00.000	INEWSConsolidation thirty break up	15	5636.67	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 06:30:00.000	Falling trendline break - 3 point	15	5634.41	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 06:15:00.000	KTAThree day power play long	15	5633.53	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 06:00:00.000	ET Reversal 2 short	15	5632.91	No
+ 	SPX500	5644.0	5652.0	ORShort	26/08/2024 06:00:00.000	FXShooting Star candle formation	15	5632.91	No
