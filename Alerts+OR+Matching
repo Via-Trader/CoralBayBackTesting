@@ -9,20 +9,20 @@ BEGIN
 END
 go
 create view matching_or_spx_v as
-SELECT DISTINCT TOP 10000
-    a.stock,
-    CAST(b.orh AS FLOAT) AS orl,
-    CAST(b.orl AS FLOAT) AS orh,
+SELECT DISTINCT TOP 10000 
+    a.stock Symbol,P,PS1,PR1,round(price-P,1) DPDelta,
+    CAST(b.orh AS FLOAT) AS ORL,
+    CAST(b.orl AS FLOAT) AS ORH,
     CASE
         WHEN (a.price >= CAST(b.orh AS FLOAT) AND a.price <= CAST(b.orl AS FLOAT)) THEN 'ORRangeBound'
         WHEN  (a.price >= CAST(b.orl AS FLOAT)) THEN 'ORLong'
         WHEN  (a.price <= CAST(b.orh AS FLOAT)) THEN 'ORShort'
         ELSE ''
     END AS ORStatus,
-    a.alerttime,
-    a.modulename,
-    a.timeperiod,
-    a.price,
+    a.alerttime Alerttime,dbdate dbDate,
+    a.modulename Modulename,
+    a.timeperiod TF,
+    a.price Price,
     CASE
         WHEN EXISTS (
             SELECT 1
@@ -46,7 +46,7 @@ SELECT DISTINCT TOP 10000
 FROM
     esp..a AS a
 JOIN
-    (SELECT TOP 1 symbol, CAST(orh AS FLOAT) AS orh, CAST(orl AS FLOAT) AS orl, alerttime
+    (SELECT TOP 1 symbol, CAST(orh AS FLOAT) AS orh, CAST(orl AS FLOAT) AS orl, alerttime,P,PS1,PR1
      FROM OR_VWap_v
      WHERE symbol = 'spx500'
      ORDER BY alerttime DESC) AS b
@@ -79,6 +79,7 @@ IF OBJECT_ID('dbo.matching_or_spx_v') IS NOT NULL
 ELSE
     PRINT '<<< FAILED CREATING VIEW dbo.matching_or_spx_v >>>'
 go
+
 
 IF OBJECT_ID('dbo.matching_or_spx2_v') IS NOT NULL
 BEGIN
